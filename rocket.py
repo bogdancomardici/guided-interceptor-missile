@@ -70,8 +70,17 @@ while True:
             heading =math.degrees(math.atan(delta))
             interceptor.setheading(360 - heading)
 
+        # target is down and left
 
-        interceptor.forward(4)
+        if(incoming_missile.xcor() < interceptor.xcor() and incoming_missile.ycor() < interceptor.ycor()):
+            dx = interceptor.xcor() - incoming_missile.xcor()
+            dy = interceptor.ycor() - incoming_missile.ycor()
+
+            delta = dy / dx
+            heading =math.degrees(math.atan(delta))
+            interceptor.setheading(180 + heading)
+
+        interceptor.forward(3)
 
         if((interceptor.distance(incoming_missile)) < 3):
             
