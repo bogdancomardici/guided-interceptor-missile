@@ -7,18 +7,22 @@ s.setup(width = 550, height = 550)
 
 
 incoming_missile = turtle.Turtle()
+incoming_missile.hideturtle()
+
 interceptor = turtle.Turtle()
+interceptor.hideturtle()
+
 incoming_missile.color("red")
 incoming_missile.penup()
 interceptor.color("blue")
 interceptor.penup()
 
-incoming_missile.hideturtle()
+
 incoming_missile.goto(-250, -250)
 incoming_missile.showturtle()
 incoming_missile.left(45)
 
-interceptor.hideturtle()
+
 interceptor.goto(0, -250)
 interceptor.showturtle()
 interceptor.left(90)
@@ -67,7 +71,30 @@ while True:
             interceptor.setheading(360 - heading)
 
 
-        interceptor.forward(3)
+        interceptor.forward(4)
+
+        if((interceptor.distance(incoming_missile)) < 3):
+            
+            incoming_missile.hideturtle()
+            interceptor.hideturtle()
+            explosion = turtle.Turtle()
+            explosion.hideturtle()
+            explosion.color("orange")
+            explosion.pensize(1)
+            explosion.penup()
+            explosion.goto(incoming_missile.pos())
+            explosion.pendown()
+
+            for i in range(20):
+                angle = random.randint(0, 45)
+                distance = random.randint(0 ,30)
+                explosion.right(angle)
+                explosion.forward(distance)
+                explosion.backward(distance)
+
+            break
+
+
         
         
 turtle.done()
