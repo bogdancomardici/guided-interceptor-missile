@@ -26,6 +26,32 @@ incoming_missile.left(45)
 interceptor.goto(0, -250)
 interceptor.showturtle()
 interceptor.left(90)
+
+def detectEdge(incoming_missile, interceptor):
+    if(interceptor.xcor() < -250):
+        interceptor.goto(250, interceptor.ycor())
+
+    if(incoming_missile.xcor() < -250):
+        incoming_missile.goto(250, incoming_missile.ycor())
+
+    if(interceptor.ycor() < -250):
+        interceptor.goto(interceptor.xcor(), 250)
+        
+    if(incoming_missile.ycor() < -250):
+        incoming_missile.goto(incoming_missile.xcor(), 250)
+
+    if(interceptor.xcor() > 250):
+        interceptor.goto(-250, interceptor.ycor())
+
+    if(incoming_missile.xcor() > 250):
+        incoming_missile.goto(-250, incoming_missile.ycor())
+
+    if(interceptor.ycor() > 250):
+        interceptor.goto(interceptor.xcor(), -250)
+        
+    if(incoming_missile.ycor() > 250):
+        incoming_missile.goto(incoming_missile.xcor(), -250)
+
 while True:
 
         # incoming missile random movement
@@ -79,12 +105,14 @@ while True:
 
         interceptor.forward(3)
 
+        # detect if the missiles go out of bounds
+        detectEdge(incoming_missile = incoming_missile, interceptor = interceptor)
+
         # if the interceptor is on the right course it will accelerate
         if(abs(incoming_missile.heading() - interceptor.heading()) < 20):
             interceptor.forward(10)
 
         # when the missiles colide
-
         if((interceptor.distance(incoming_missile)) < 3):
             
             # new turtle to draw the explosion
@@ -107,8 +135,5 @@ while True:
                 explosion.backward(distance)
 
             break
-
-
-        
         
 turtle.done()
