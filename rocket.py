@@ -29,16 +29,10 @@ interceptor.left(90)
 while True:
 
         # incoming missile random movement
-        direction = random.randint(0,14)
+        direction = random.randint(-10, 10) #maximum of 10 degrees
 
-        if(direction >= 0 and direction <= 10):
-           incoming_missile.forward(3)
-        elif(direction == 12):
-           incoming_missile.left(15)
-           incoming_missile.forward(3)
-        elif(direction == 13):
-           incoming_missile.right(15)
-           incoming_missile.forward(3)
+        incoming_missile.setheading(direction + incoming_missile.heading())
+        incoming_missile.forward(5)
         
         # target is up and left
 
@@ -84,6 +78,10 @@ while True:
             interceptor.setheading(180 + heading)
 
         interceptor.forward(3)
+
+        # if the interceptor is on the right course it will accelerate
+        if(abs(incoming_missile.heading() - interceptor.heading()) < 20):
+            interceptor.forward(10)
 
         # when the missiles colide
 
